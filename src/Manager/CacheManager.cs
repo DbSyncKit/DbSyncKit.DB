@@ -66,7 +66,7 @@ namespace DbSyncKit.DB.Manager
             identityColumns = CacheManager.GetTypeProperties(type)
                 .Where(prop =>
                     Attribute.IsDefined(prop, typeof(KeyPropertyAttribute)) &&
-                    ((KeyPropertyAttribute)Attribute.GetCustomAttribute(prop, typeof(KeyPropertyAttribute))).IsPrimaryKey
+                    ((KeyPropertyAttribute)Attribute.GetCustomAttribute(prop, typeof(KeyPropertyAttribute))!).IsPrimaryKey
                 ).Select(prop => prop.Name).ToList();
 
 
@@ -92,7 +92,7 @@ namespace DbSyncKit.DB.Manager
             keyColumns = GetTypeProperties(type)
                 .Where(prop => 
                     Attribute.IsDefined(prop, typeof(KeyPropertyAttribute)) &&
-                    ((KeyPropertyAttribute)Attribute.GetCustomAttribute(prop, typeof(KeyPropertyAttribute))).KeyProperty
+                    ((KeyPropertyAttribute)Attribute.GetCustomAttribute(prop, typeof(KeyPropertyAttribute))!).KeyProperty
                 ).Select(prop => prop.Name).ToList();
 
             typeCaches.Add(nameof(CachePropertyType.Key), keyColumns);
@@ -103,9 +103,9 @@ namespace DbSyncKit.DB.Manager
         /// <summary>
         /// Gets the names of properties marked as excluded properties for a specified type.
         /// </summary>
-        /// <param name="type">The type for which to retrieve excluded properties.</param>
-        /// <returns>A list of excluded property names.</returns>
-        public static List<string> GetExcludedProperties(Type type)
+        /// <param name="type">The type for which to retrieve excluded columns.</param>
+        /// <returns>A list of excluded column names.</returns>
+        public static List<string> GetExcludedColumns(Type type)
         {
             var typeCaches = GetOrCreateDictionary(type);
 
@@ -114,11 +114,7 @@ namespace DbSyncKit.DB.Manager
                 return (List<string>)excludedProperties;
             }
 
-            excludedProperties = GetTypeProperties(type)
-                .Where(prop => 
-                    Attribute.IsDefined(prop, typeof(ExcludedPropertyAttribute)) &&
-                    ((ExcludedPropertyAttribute)Attribute.GetCustomAttribute(prop, typeof(ExcludedPropertyAttribute))).Excluded
-                ).Select(prop => prop.Name).ToList();
+            excludedProperties = GetExcludedProperties(type).Select(prop => prop.Name).ToList();
 
             typeCaches.Add(nameof(CachePropertyType.Excluded), excludedProperties);
 
@@ -194,9 +190,9 @@ namespace DbSyncKit.DB.Manager
             else
                 TableSchema = null;
 
-            typeCaches.Add(nameof(CachePropertyType.TableSchema), TableSchema);
+            typeCaches.Add(nameof(CachePropertyType.TableSchema), TableSchema!);
 
-            return (string)TableSchema;
+            return (string?)TableSchema;
         }
 
         /// <summary>
@@ -266,9 +262,62 @@ namespace DbSyncKit.DB.Manager
             }
 
             var keyProps = GetKeyColumns(type);
-            var excludeProps = GetExcludedProperties(type);
+            var excludeProps = GetExcludedColumns(type);
 
             _properties = GetTypeProperties(type).Where(prop => !keyProps.Contains(prop.Name) && !excludeProps.Contains(prop.Name)).ToArray();
+
+            return (PropertyInfo[])_properties;
+
+        }
+
+        /// <summary>
+        /// Gets the properties that are unique for a specified type.
+        /// </summary>
+        /// <param name="type">The type for which to retrieve unique properties.</param>
+        /// <returns>An array of <see cref="PropertyInfo"/> objects representing unique properties of the specified type.</returns>
+        public static PropertyInfo[] GetKeyProperties(Type type)
+        {
+            var typeCaches = GetOrCreateDictionary(type);
+
+            if (typeCaches.TryGetValue(nameof(CachePropertyType.KeyProperties), out var _properties))
+            {
+                return (PropertyInfo[])_properties;
+            }
+
+            var keyProps = GetKeyColumns(type);
+            var excludeProps = GetExcludedColumns(type);
+
+            _properties = GetTypeProperties(type)
+                .Where(prop =>
+                    Attribute.IsDefined(prop, typeof(KeyPropertyAttribute)) &&
+                    ((KeyPropertyAttribute)Attribute.GetCustomAttribute(prop, typeof(KeyPropertyAttribute))!).KeyProperty
+                ).ToArray();
+
+            return (PropertyInfo[])_properties;
+
+        }
+
+        /// <summary>
+        /// Gets the excluded properties for a specified type.
+        /// </summary>
+        /// <param name="type">The type for which to retrieve the excluded properties.</param>
+        /// <returns>An array of <see cref="PropertyInfo"/> representing the excluded properties for the specified type.</returns>
+        public static PropertyInfo[] GetExcludedProperties(Type type)
+        {
+            var typeCaches = GetOrCreateDictionary(type);
+
+            if (typeCaches.TryGetValue(nameof(CachePropertyType.ExcludedProperties), out var _properties))
+            {
+                return (PropertyInfo[])_properties;
+            }
+
+            var keyProps = GetKeyColumns(type);
+
+            _properties = GetTypeProperties(type)
+                .Where(prop =>
+                    Attribute.IsDefined(prop, typeof(ExcludedPropertyAttribute)) &&
+                    ((ExcludedPropertyAttribute)Attribute.GetCustomAttribute(prop, typeof(ExcludedPropertyAttribute))!).Excluded
+                ).ToArray();
 
             return (PropertyInfo[])_properties;
 
