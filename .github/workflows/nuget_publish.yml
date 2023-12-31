@@ -18,7 +18,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: '8.0' 
+        dotnet-version: 'net8.0'
 
     - name: Build and Publish DbSyncKit.DB
       run: |
