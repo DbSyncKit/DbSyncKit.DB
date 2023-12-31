@@ -16,7 +16,7 @@ jobs:
         repository: 'DbSyncKit/DbSyncKit'  
 
     - name: Pull & update submodules recursively
-        run: |
+      run: |
           git submodule update --init --recursive
           git submodule update --recursive --remote
  
