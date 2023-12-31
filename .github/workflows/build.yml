@@ -9,19 +9,19 @@ jobs:
   build_check:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        dotnet-version: ['net7.0', 'net8.0']
-
     steps:
     - name: Checkout Main Repository
       uses: actions/checkout@v2
+      with:
+        repository: 'DbSyncKit/DbSyncKit'  
+        submodules: true
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: ${{ matrix.dotnet-version }}
+        dotnet-version: '8.0.x'
 
     - name: Build DbSyncKit
       run: |
+        cd DbSyncKit.DB/src
         dotnet build -c Release
