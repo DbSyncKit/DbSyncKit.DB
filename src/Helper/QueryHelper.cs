@@ -68,9 +68,9 @@ namespace DbSyncKit.DB.Helper
         /// <typeparam name="T">The type for which to get the excluded properties. Must implement <see cref="IDataContractComparer"/>.</typeparam>
         /// <returns>A list of excluded property names.</returns>
         /// <seealso cref="IDataContractComparer"/>
-        public List<string> GetExcludedProperties<T>() where T : IDataContractComparer
+        public List<string> GetExcludedColumns<T>() where T : IDataContractComparer
         {
-            return CacheManager.GetExcludedProperties(typeof(T));
+            return CacheManager.GetExcludedColumns(typeof(T));
         }
 
         /// <summary>
@@ -98,7 +98,26 @@ namespace DbSyncKit.DB.Helper
             return CacheManager.GetIdentityColumns(typeof(T));
         }
 
+        /// <summary>
+        /// Retrieves an array of <see cref="PropertyInfo"/> objects representing the properties that are used for data comparison
+        /// in objects of type <typeparamref name="T"/>. These properties are determined based on the implementation of the
+        /// <see cref="IDataContractComparer"/> interface.
+        /// </summary>
+        /// <typeparam name="T">The type of objects for which to retrieve comparable properties.</typeparam>
+        /// <returns>An array of <see cref="PropertyInfo"/> objects representing the comparable properties of type <typeparamref name="T"/>.</returns>
         public PropertyInfo[] GetComparableProperties<T>() where T: IDataContractComparer
+        {
+            return CacheManager.GetComparableProperties(typeof(T));
+        }
+
+        /// <summary>
+        /// Retrieves an array of <see cref="PropertyInfo"/> objects representing the properties that are used as key properties
+        /// for uniquely identifying objects of type <typeparamref name="T"/>. These key properties are determined based on the
+        /// implementation of the <see cref="IDataContractComparer"/> interface.
+        /// </summary>
+        /// <typeparam name="T">The type of objects for which to retrieve key properties.</typeparam>
+        /// <returns>An array of <see cref="PropertyInfo"/> objects representing the key properties of type <typeparamref name="T"/>.</returns>
+        public PropertyInfo[] GetKeyProperties<T>() where T : IDataContractComparer
         {
             return CacheManager.GetComparableProperties(typeof(T));
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DbSyncKit.DB.Manager;
 
 namespace DbSyncKit.DB.Enum
 {
@@ -54,7 +50,17 @@ namespace DbSyncKit.DB.Enum
         /// <summary>
         /// Represents properties that are comparable (neither key nor excluded).
         /// </summary>
-        ComparableProperties
+        ComparableProperties,
+
+        /// <summary>
+        /// Represents properties that are unique.
+        /// </summary>
+        KeyProperties,
+
+        /// <summary>
+        /// Represents properties that are excluded.
+        /// </summary>
+        ExcludedProperties
     }
 
 }
