@@ -119,7 +119,7 @@ namespace DbSyncKit.DB.Helper
         /// <returns>An array of <see cref="PropertyInfo"/> objects representing the key properties of type <typeparamref name="T"/>.</returns>
         public PropertyInfo[] GetKeyProperties<T>() where T : IDataContractComparer
         {
-            return CacheManager.GetComparableProperties(typeof(T));
+            return CacheManager.GetKeyProperties(typeof(T));
         }
 
     }
