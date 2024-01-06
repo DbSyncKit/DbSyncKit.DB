@@ -77,6 +77,7 @@ namespace DbSyncKit.DB
             return _querryGenerator.GenerateBatchSeparator();
         }
 
+        /// <inheritdoc />
         public void Dispose()
         {
             _querryGenerator.Dispose();
