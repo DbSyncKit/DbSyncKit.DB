@@ -1,4 +1,4 @@
-﻿using DbSyncKit.DB.Utils;
+﻿using DbSyncKit.DB.Interface;
 using System.Data;
 namespace DbSyncKit.DB.Extensions
 {
@@ -15,7 +15,7 @@ namespace DbSyncKit.DB.Extensions
         /// <param name="columnName">The name of the column.</param>
         /// <returns>The value of the specified column, converted to the specified type.</returns>
         /// <remarks>
-        /// This extension method is intended for use with classes that inherit from <see cref="DataContractUtility{T}"/>.
+        /// This extension method is intended for use with classes that inherit from <see cref="IDataContractComparer"/>.
         /// </remarks>
         public static T GetValue<T>(this DataRow row, string columnName)
         {
