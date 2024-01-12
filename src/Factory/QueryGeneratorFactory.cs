@@ -11,7 +11,7 @@ namespace DbSyncKit.DB.Factory
     /// <summary>
     /// Factory class for creating instances of <see cref="IQueryGenerator"/> based on the specified <see cref="DatabaseProvider"/>.
     /// </summary>
-    public static class QueryGeneratorFactory
+    public class QueryGeneratorFactory
     {
         /// <summary>
         /// Gets an instance of <see cref="IQueryGenerator"/> based on the specified <paramref name="provider"/>.
@@ -20,7 +20,7 @@ namespace DbSyncKit.DB.Factory
         /// <returns>An instance of <see cref="IQueryGenerator"/> for the specified database provider.</returns>
         /// <exception cref="ArgumentException">Thrown if the <paramref name="provider"/> is not supported.</exception>
         /// <exception cref="TypeLoadException">Thrown if the type for the specified database provider is not found.</exception>
-        public static IQueryGenerator GetQueryGenerator(DatabaseProvider provider)
+        public IQueryGenerator GetQueryGenerator(DatabaseProvider provider)
         {
             string namespacePrefix; // Adjust this to your actual namespace
             string className = "QueryGenerator";
