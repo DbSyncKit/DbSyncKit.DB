@@ -24,25 +24,25 @@ namespace DbSyncKit.DB
 
         #region Public Methods
         /// <inheritdoc />
-        public string GenerateSelectQuery<T>(string tableName, List<string> listOfColumns, string schemaName) where T : IDataContractComparer
+        public string GenerateSelectQuery<T>(string tableName, List<string> listOfColumns, string schemaName) where T : IDataContract
         {
             return _querryGenerator.GenerateSelectQuery<T>(tableName, listOfColumns, schemaName);
         }
 
         /// <inheritdoc />
-        public string GenerateUpdateQuery<T>(T DataContract, List<string> keyColumns, List<string> excludedColumns, Dictionary<string, object> editedProperties) where T : IDataContractComparer
+        public string GenerateUpdateQuery<T>(T DataContract, List<string> keyColumns, List<string> excludedColumns, (string propName, object propValue)[] editedProperties) where T : IDataContract
         {
             return _querryGenerator.GenerateUpdateQuery<T>(DataContract, keyColumns, excludedColumns, editedProperties);
         }
 
         /// <inheritdoc />
-        public string GenerateDeleteQuery<T>(T entity, List<string> keyColumns) where T : IDataContractComparer
+        public string GenerateDeleteQuery<T>(T entity, List<string> keyColumns) where T : IDataContract
         {
             return _querryGenerator.GenerateDeleteQuery<T>(entity, keyColumns);
         }
 
         /// <inheritdoc />
-        public string GenerateInsertQuery<T>(T entity, List<string> keyColumns, List<string> excludedColumns) where T : IDataContractComparer
+        public string GenerateInsertQuery<T>(T entity, List<string> keyColumns, List<string> excludedColumns) where T : IDataContract
         {
             return _querryGenerator.GenerateInsertQuery<T>(entity, keyColumns, excludedColumns);
         }
@@ -54,7 +54,7 @@ namespace DbSyncKit.DB
         }
 
         /// <inheritdoc />
-        public List<string> GetCondition<T>(T entity, List<string> keyColumns) where T : IDataContractComparer
+        public List<string> GetCondition<T>(T entity, List<string> keyColumns) where T : IDataContract
         {
             return _querryGenerator.GetCondition<T>(entity, keyColumns);
         }

@@ -6,7 +6,7 @@
     /// <remarks>
     /// Implement this interface in data contracts to enable comparison functionality.
     /// </remarks>
-    public interface IDataContractComparer
+    public interface IDataContract
     {
     }
 }

@@ -24,16 +24,21 @@
         public bool IsPrimaryKey { get; }
 
         /// <summary>
+        /// Gets a value indicating whether the property is comparable.
+        /// </summary>
+        public bool IsComparable { get; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="KeyPropertyAttribute"/> class.
         /// </summary>
-        /// <param name="keyProperty">Indicates whether the property should be considered as a key property.
-        /// Default is <c>true</c>.</param>
-        /// <param name="isPrimaryKey">Indicates whether the property is a primary key.
-        /// Default is <c>false</c>.</param>
-        public KeyPropertyAttribute(bool keyProperty = true, bool isPrimaryKey = false)
+        /// <param name="keyProperty">Indicates whether the property should be considered as a key property. Default is <c>true</c>.</param>
+        /// <param name="isPrimaryKey">Indicates whether the property is a primary key. Default is <c>false</c>.</param>
+        /// <param name="isComparable">Indicates whether the property is comparable. Default is <c>false</c>.</param>
+        public KeyPropertyAttribute(bool keyProperty = true, bool isPrimaryKey = false, bool isComparable = false)
         {
             KeyProperty = keyProperty;
             IsPrimaryKey = isPrimaryKey;
+            IsComparable = isComparable;
         }
     }
 }

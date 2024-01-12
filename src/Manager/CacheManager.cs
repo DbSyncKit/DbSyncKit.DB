@@ -261,7 +261,13 @@ namespace DbSyncKit.DB.Manager
                 return (PropertyInfo[])_properties;
             }
 
-            var keyProps = GetKeyColumns(type);
+            var keyProps = GetTypeProperties(type)
+                .Where(prop =>
+                    Attribute.IsDefined(prop, typeof(KeyPropertyAttribute)) &&
+                    ((KeyPropertyAttribute)Attribute.GetCustomAttribute(prop, typeof(KeyPropertyAttribute))!).KeyProperty &&
+                    !((KeyPropertyAttribute)Attribute.GetCustomAttribute(prop, typeof(KeyPropertyAttribute))!).IsComparable
+                ).Select(prop => prop.Name);
+
             var excludeProps = GetExcludedColumns(type);
 
             _properties = GetTypeProperties(type).Where(prop => !keyProps.Contains(prop.Name) && !excludeProps.Contains(prop.Name)).ToArray();
