@@ -13,7 +13,7 @@
         /// <param name="ListOfColumns">The list of columns to be selected.</param>
         /// <param name="schemaName">The schema name of the database table.</param>
         /// <returns>A string representing the generated SELECT query.</returns>
-        string GenerateSelectQuery<T>(string tableName, List<string> ListOfColumns, string schemaName) where T : IDataContract;
+        string GenerateSelectQuery<T>(string tableName, List<string> ListOfColumns, string schemaName);
 
         /// <summary>
         /// Generates an UPDATE query for updating data in a database table.
@@ -24,7 +24,7 @@
         /// <param name="excludedColumns">The list of columns to be excluded from the update.</param>
         /// <param name="editedProperties">A dictionary representing the properties and their new values to be updated.</param>
         /// <returns>A string representing the generated UPDATE query.</returns>
-        string GenerateUpdateQuery<T>(T DataContract, List<string> keyColumns, List<string> excludedColumns, (string propName, object propValue)[] editedProperties) where T : IDataContract;
+        string GenerateUpdateQuery<T>(T DataContract, List<string> keyColumns, List<string> excludedColumns, (string propName, object propValue)[] editedProperties);
 
         /// <summary>
         /// Generates a DELETE query for deleting data from a database table.
@@ -33,7 +33,7 @@
         /// <param name="entity">The entity representing the data to be deleted.</param>
         /// <param name="keyColumns">The list of key columns used for deletion.</param>
         /// <returns>A string representing the generated DELETE query.</returns>
-        string GenerateDeleteQuery<T>(T entity, List<string> keyColumns) where T : IDataContract;
+        string GenerateDeleteQuery<T>(T entity, List<string> keyColumns);
 
         /// <summary>
         /// Generates an INSERT query for inserting data into a database table.
@@ -43,7 +43,7 @@
         /// <param name="keyColumns">The list of key columns used for insertion.</param>
         /// <param name="excludedColumns">The list of columns to be excluded from the insertion.</param>
         /// <returns>A string representing the generated INSERT query.</returns>
-        string GenerateInsertQuery<T>(T entity, List<string> keyColumns, List<string> excludedColumns) where T : IDataContract;
+        string GenerateInsertQuery<T>(T entity, List<string> keyColumns, List<string> excludedColumns);
 
         /// <summary>
         /// Generates a SQL comment.
@@ -59,7 +59,7 @@
         /// <param name="entity">The entity for which the condition is generated.</param>
         /// <param name="keyColumns">The list of key columns used to create the condition.</param>
         /// <returns>A string representing the generated condition for a SQL WHERE clause.</returns>
-        List<string> GetCondition<T>(T entity, List<string> keyColumns) where T : IDataContract;
+        List<string> GetCondition<T>(T entity, List<string> keyColumns);
 
         /// <summary>
         /// Escapes special characters in the input to make it SQL-safe.

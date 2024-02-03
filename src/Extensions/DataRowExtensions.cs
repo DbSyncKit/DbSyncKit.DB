@@ -14,9 +14,6 @@ namespace DbSyncKit.DB.Extensions
         /// <param name="row">The DataRow from which to retrieve the value.</param>
         /// <param name="columnName">The name of the column.</param>
         /// <returns>The value of the specified column, converted to the specified type.</returns>
-        /// <remarks>
-        /// This extension method is intended for use with classes that inherit from <see cref="IDataContract"/>.
-        /// </remarks>
         public static T GetValue<T>(this DataRow row, string columnName)
         {
             // Check if the DataRow is null
