@@ -1,5 +1,6 @@
 ﻿using DbSyncKit.DB.Enum;
 using DbSyncKit.DB.Interface;
+using DbSyncKit.Templates.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;

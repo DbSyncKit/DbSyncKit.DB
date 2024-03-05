@@ -31,4 +31,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\DbSyncKit.Templates\src\DbSyncKit.Templates.csproj" />
+  </ItemGroup>
+
 </Project>

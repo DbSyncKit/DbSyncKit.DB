@@ -1,6 +1,8 @@
 ﻿using DbSyncKit.DB.Comparer;
 using DbSyncKit.DB.Factory;
 using DbSyncKit.DB.Interface;
+using DbSyncKit.Templates;
+using DbSyncKit.Templates.Interface;
 
 namespace DbSyncKit.DB.Fetcher
 {
